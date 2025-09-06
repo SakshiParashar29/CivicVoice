@@ -46,3 +46,17 @@ Currently, reporting civic issues such as water supply disruptions, sanitation p
 
 ---
 
+## Demo Credentials
+
+To explore the full functionality of CivicVoice, use the following default logins:
+
+- **User Account:**  
+  - Username: `user1`  
+  - Password: `user123`  
+  - Role: `User`
+
+- **Admin Account:**  
+  - Username: `admin1`  
+  - Password: `admin123`  
+  - Role: `Admin`
+---
