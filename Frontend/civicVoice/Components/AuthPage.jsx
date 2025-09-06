@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignInForm from "./SignIn.jsx";
 import SignUpForm from "./SignUp.jsx";
 
@@ -31,7 +31,7 @@ const AuthPage = () => {
 
         {/* Form Container */}
         <div className="px-6 py-6">
-          {activeForm === "signin" ? <SignInForm /> : <SignUpForm />}
+          {activeForm === "signin" ? <SignInForm setActiveForm={setActiveForm} /> : <SignUpForm setActiveForm={setActiveForm} />}
         </div>
       </div>
     </div>

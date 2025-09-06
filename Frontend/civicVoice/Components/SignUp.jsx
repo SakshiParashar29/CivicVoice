@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SignUp = () => {
+const SignUp = ({setActiveForm}) => {
   const states = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
     "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
@@ -91,7 +91,12 @@ const SignUp = () => {
 
         <p className="mt-2 text-center text-sm text-gray-600 cursor-pointer">
           Already Registered?{" "}
-          <a href="" className="text-blue-600 hover:underline">Sign In</a>
+          <span
+            className="text-blue-600 hover:underline"
+            onClick={() => setActiveForm("signin")}
+          >
+              Sign In
+          </span>
         </p>
       </div>
   )
