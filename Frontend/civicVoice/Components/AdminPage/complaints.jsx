@@ -1,38 +1,30 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import {
   ArrowUpWideNarrow,
   FileText,
   ListChecks,
   Layers,
 } from "lucide-react";
+import axios from "axios"
 
 const AdminComplaints = () => {
-  const [complaints] = useState([
-    {
-      id: 1,
-      title: "Streetlight not working",
-      description: "Main road lights have been out for 2 weeks.",
-      upvotes: 15,
-      status: "Pending",
-      category: "Infrastructure",
-    },
-    {
-      id: 2,
-      title: "Garbage not collected",
-      description: "Garbage in Sector 5 is overflowing.",
-      upvotes: 30,
-      status: "In Progress",
-      category: "Sanitation",
-    },
-    {
-      id: 3,
-      title: "Water supply issue",
-      description: "Low water pressure in the mornings.",
-      upvotes: 10,
-      status: "Resolved",
-      category: "Utilities",
-    },
-  ]);
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      try {
+        const complaintArr = await axios.get("http://localhost:3000/api/complaint/get-complaints", {});
+        setComplaints(complaintArr.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
+
+    fetchComplaints();
+  }, [])
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -41,7 +33,9 @@ const AdminComplaints = () => {
         Complaints Dashboard
       </h2>
 
-      <div className="overflow-x-auto rounded-2xl shadow-lg">
+      {complaints.length === 0 ? (<div className="text-center py-20 text-xl text-green-700 font-semibold">
+         No complaints at the moment! Everything is running smoothly. Keep up the great work!
+        </div>) : (<div className="overflow-x-auto rounded-2xl shadow-lg">
         <table className="min-w-full border-collapse bg-white">
           {/* Table Header */}
           <thead>
@@ -92,13 +86,12 @@ const AdminComplaints = () => {
                 {/* Status */}
                 <td className="p-4">
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      c.status === "Resolved"
+                    className={`px-3 py-1 rounded-full text-xs font-semibold ${c.status === "Resolved"
                         ? "bg-green-100 text-green-700"
                         : c.status === "In Progress"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
                   >
                     {c.status}
                   </span>
@@ -111,6 +104,7 @@ const AdminComplaints = () => {
           </tbody>
         </table>
       </div>
+    )}
     </div>
   );
 };

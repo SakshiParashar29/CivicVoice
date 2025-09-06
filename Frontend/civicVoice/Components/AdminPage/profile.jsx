@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit3, CheckCircle, Clock, AlertTriangle, Loader2, Loader, Loader2Icon, LoaderCircle, LoaderIcon } from "lucide-react";
+import { Edit3, CheckCircle, Clock, LoaderIcon } from "lucide-react";
 
 const AdminProfile = () => {
   const admin = {
