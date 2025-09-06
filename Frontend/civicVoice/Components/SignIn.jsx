@@ -1,9 +1,9 @@
 import React from 'react'
+import {useNavigate} from "react-router-dom"
 
 const SignIn = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <div className="w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign In</h2>
         
         <form className="space-y-4">
@@ -48,13 +48,12 @@ const SignIn = () => {
           </button>
         </form>
 
-        {/* Extra: Sign up redirect */}
+        {/* Sign up redirect */}
         <p className="mt-6 text-center text-sm text-gray-600 cursor-pointer">
           Don't have an account?{" "}
           <a href="/signup" className="text-blue-600 hover:underline">Sign Up</a>
         </p>
       </div>
-    </div>
   )
 }
 

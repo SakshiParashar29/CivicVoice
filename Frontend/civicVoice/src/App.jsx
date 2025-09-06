@@ -1,13 +1,14 @@
 import './App.css'
-import Admin from '../Components/AdminPage/Admin.jsx'
-import User from '../Components/UserPage/User.jsx'
+import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Landing from '../Components/LandingPage/Landing.jsx'
+import AuthPage from '../Components/AuthPage.jsx'
 function App() {
    return (
       <div>
-         <Landing/>
-        <Admin/>
-        <User/>
+         <Routes>
+            <Route path='/' element={<Landing />} />
+            <Route path='/auth' element={<AuthPage/>}/>
+         </Routes>
       </div>
    )
 }

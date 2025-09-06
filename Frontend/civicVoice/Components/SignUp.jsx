@@ -13,8 +13,7 @@ const SignUp = () => {
   ];
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <div className="w-full max-w-md bg-white">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h2>
         
         <form className="space-y-4">
@@ -90,12 +89,11 @@ const SignUp = () => {
           </button>
         </form>
 
-        <p className="mt-4 text-center text-sm text-gray-600 cursor-pointer">
+        <p className="mt-2 text-center text-sm text-gray-600 cursor-pointer">
           Already Registered?{" "}
           <a href="" className="text-blue-600 hover:underline">Sign In</a>
         </p>
       </div>
-    </div>
   )
 }
 
