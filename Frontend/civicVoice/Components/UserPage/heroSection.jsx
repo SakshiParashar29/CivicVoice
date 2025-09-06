@@ -33,7 +33,7 @@ const HeroSection = () => {
         <p className="text-lg text-gray-700 leading-relaxed">
           Empower your community by raising your voice. Report issues, track
           their status, and create change together. Every complaint counts —
-          let’s build a better society.
+          let's build a better society.
         </p>
       </div>
 
