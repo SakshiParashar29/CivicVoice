@@ -12,12 +12,33 @@ const HeroSection = () => {
     setComplaint({ ...complaint, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Complaint Submitted:", complaint);
-    alert("Your complaint has been submitted successfully!");
-    setComplaint({ title: "", description: "", category: "" });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://localhost:3000/api/complaint/save-complaint", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}` 
+      },
+      body: JSON.stringify(complaint),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Your complaint has been submitted successfully!");
+      setComplaint({ title: "", description: "", category: "" });
+    } else {
+      alert("Failed to submit complaint: " + data.message);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Try again!");
+  }
+};
+
 
   return (
     <section className="bg-gradient-to-r from-blue-50 to-orange-50 min-h-screen flex flex-col items-center justify-center px-6 py-12">

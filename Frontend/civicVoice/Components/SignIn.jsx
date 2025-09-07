@@ -1,52 +1,57 @@
 import React, { useState } from 'react'
 import {useNavigate} from "react-router-dom"
-import AdminPage from "../Components/AdminPage/Admin.jsx"
-import UserPage from "../Components/UserPage/User.jsx"
+import axios from 'axios'
 
 const SignIn = ({setActiveForm}) => {
-  const navigate = useNavigate();
-  const [username, setUserName] = useState('');
+  
+  const [identification, setidentification] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
 
-  const dummyUsers = [
-    { username: "user1", password: "user123", role: "user" },
-    { username: "admin1", password: "admin123", role: "admin" },
-  ];
+  const navigate = useNavigate();
 
+  const submitForm = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(!username || !password || !role){
-      alert("Invalid credentials");
+    localStorage.removeItem("token");
+
+    if (!identification || !password) {
+      alert("Enter the necessary credentials");
       return;
     }
 
-    const user = dummyUsers.find(
-      (u) => u.username === username && u.password === password && u.role === role
-    );
+    try {
+      const response = await axios.post('http://localhost:3000/api/users/signin', {
+        identification,
+        password
+      });
 
-    if(user){
-      if(role === "admin")
-        navigate('/admin');
-      else if(role === "user")
-        navigate('/user');
-    }else{
-      alert("Invalid credentials!!")
+      if (response.data.success) {
+        setidentification('');
+        setPassword('');
+        if (role === "admin") navigate("/admin");
+        else navigate("/user");
+      }
+      else {
+        alert("SignIn failed!");
+      }
+    } catch (error) {
+      console.log("error occured : ", error);
+      alert("Something went wrong. Try again!");
     }
   }
   return (
       <div className="w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign In</h2>
         
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={submitForm}>
           {/* Email or Username */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Email / Username</label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
+              value={identification}
+              onChange={(e) => setidentification(e.target.value)}
               placeholder="Enter your email or username"
               className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
             />
@@ -78,8 +83,7 @@ const SignIn = ({setActiveForm}) => {
 
           {/* Submit */}
           <button
-            onClick={handleSubmit}
-            type="button"
+            type="submit"
             className="cursor-pointer w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 mt-1"
           >
             Sign In

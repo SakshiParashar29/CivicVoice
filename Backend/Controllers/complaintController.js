@@ -2,10 +2,17 @@ import express from "express";
 import Complaint from "../Models/ComplaintModel.js"
 import ApiError from "../Utils/ApiError.js"
 import ApiResponse from "../Utils/ApiResponse.js"
+import User from "../Models/userModel.js"
 
 export const getAllComplaints = async (req, res) => {
     try {
-        const complaints = await Complaint.find();
+        const user = await User.findById(req.user.id);
+
+        if (!user)
+            return res.status(404).json(new ApiError(404, "User not found", null));
+
+
+        const complaints = await Complaint.find({ state: user.state });
 
         const responseData = complaints.map((c) => ({
             id: c._id,
@@ -29,10 +36,16 @@ export const saveComplaint = async (req, res) => {
             return res.status(500).json(new ApiError(500, "Invalid Crendentials", null));
         }
 
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json(new ApiError(404, "User not found", null));
+        }
+
         const complaint = new Complaint({
             title,
             description,
-            category
+            category,
+            state: user.state
         })
 
         await complaint.save();
@@ -46,8 +59,8 @@ export const saveComplaint = async (req, res) => {
 
 export const updateUpvote = async (req, res) => {
     try {
-        const complaintId = req.params.id; 
-        const {userId} = req.body;  
+        const complaintId = req.params.id;
+        const { userId } = req.body;
 
         if (!userId) {
             return res.status(400).json(new ApiError(400, null, "User ID is required"));
@@ -75,4 +88,26 @@ export const updateUpvote = async (req, res) => {
             new ApiError(500, null, error.message || "Failed to update upvote")
         );
     }
+};
+
+export const getComplaintStats = async (req, res) => {
+  try {
+    const { state } = req.user;
+    if (!state) {
+      return res.status(400).json(new ApiError(400, "User state not found", null));
+    }
+
+    const total = await Complaint.countDocuments({ state });
+    const resolved = await Complaint.countDocuments({ state, status: "Resolved" });
+    const inProgress = await Complaint.countDocuments({ state, status: "In Progress" });
+    const pending = await Complaint.countDocuments({ state, status: "Pending" });
+
+    const stats = { total, resolved, inProgress, pending };
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, true, "Complaint stats fetched successfully", stats));
+  } catch (error) {
+    return res.status(500).json(new ApiError(500, error.message, null));
+  }
 };

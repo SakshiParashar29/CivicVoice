@@ -74,3 +74,19 @@ export const SignUp = async (req, res) => {
         return res.status(500).json(new ApiError(500, error.message, null));
     }
 };
+
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json(new ApiError(404, "User not found", null));
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, true, "Profile fetched successfully", user));
+  } catch (error) {
+    return res.status(500).json(new ApiError(500, error.message, null));
+  }
+};

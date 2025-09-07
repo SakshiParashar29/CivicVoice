@@ -1,7 +1,7 @@
 import {verifyToken} from "../Utils/jwt.js"
 import ApiError from "../Utils/ApiError.js"
 
-export const authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
 
     if(!token)
@@ -17,3 +17,5 @@ export const authMiddleware = (req, res, next) => {
         return res.stauts(500).send(new ApiError(500, error.message, null));
     }
 }
+
+export default authMiddleware;
