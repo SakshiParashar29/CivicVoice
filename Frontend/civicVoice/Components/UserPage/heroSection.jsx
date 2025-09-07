@@ -16,7 +16,7 @@ const HeroSection = () => {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:3000/api/complaint/save-complaint", {
+    const res = await fetch("https://civicvoice-frontend.onrender.com/api/complaint/save-complaint", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const UserComplaints = () => {
   // Fetch complaints from backend
   const fetchComplaints = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/complaint/get-complaints", {
+      const res = await fetch("https://civicvoice-frontend.onrender.com/api/complaint/get-complaints", {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
@@ -28,7 +28,7 @@ const UserComplaints = () => {
     if (userVotes.has(id)) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/complaint/update-upvote/${id}`, {
+      const res = await fetch(`https://civicvoice-frontend.onrender.com/api/complaint/update-upvote/${id}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
