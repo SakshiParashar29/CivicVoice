@@ -7,11 +7,8 @@ import userRoutes from "./Routes/userRoutes.js";
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://civic-voice-ten.vercel.app', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, 
-}));
+app.use(cors({ origin: 'https://civic-voice-ten.vercel.app', credentials: true }));
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
