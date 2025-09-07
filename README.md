@@ -21,21 +21,6 @@ Currently, reporting civic issues can be slow and inefficient. CivicVoice addres
 Explore the full functionality of CivicVoice by visiting the live demo:
 
 👉 [https://civic-voice-ten.vercel.app/](https://civic-voice-ten.vercel.app/)
-
-### Demo Credentials
-
-To experience both user and admin roles, use the following credentials:
-
-- **User Account:**  
-  - Username: `user1`  
-  - Password: `user123`  
-  - Role: `User`
-
-- **Admin Account:**  
-  - Username: `admin1`  
-  - Password: `admin123`  
-  - Role: `Admin`
-
 ---
 
 ## Features
@@ -56,7 +41,6 @@ To experience both user and admin roles, use the following credentials:
 
 - Notifications and email integration.
 - AI-based complaint categorization and prioritization.
-- Backend integration for persistent storage and scalability.
 
 ---
 
@@ -64,7 +48,7 @@ To experience both user and admin roles, use the following credentials:
 
 - **Frontend:** React, Tailwind CSS, HTML5, CSS3, JavaScript
 - **Routing & State Management:** React Router, useState, useEffect
-- **Backend (planned):** Node.js, Express.js, MongoDB
+- **Backend:** Node.js, Express.js, MongoDB
 - **Authentication & Authorization:** Role-based login (User/Admin)
 - **Version Control & Deployment:** Git, GitHub
 - **Additional Tools:** Lucide React (icons), Browser local state for dummy login
