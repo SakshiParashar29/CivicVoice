@@ -28,7 +28,7 @@ export const SignIn = async (req, res) => {
        if(!encoded)
           return res.status(401).json(new ApiError(401, "Invalid Password", null));
         
-        const token = generateToken({id: user._id, role: user.role});
+        const token = generateToken({id: user._id, role: user.role, state: user.state });
 
        return res.status(200).json(new ApiResponse(200, true, "Login Successfully", {user, token}));
     } catch (error) {
@@ -78,7 +78,7 @@ export const SignUp = async (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("-password");
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) {
       return res.status(404).json(new ApiError(404, "User not found", null));
     }

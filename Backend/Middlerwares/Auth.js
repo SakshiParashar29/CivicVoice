@@ -14,7 +14,7 @@ const authMiddleware = (req, res, next) => {
         next();
         
     } catch (error) {
-        return res.stauts(500).send(new ApiError(500, error.message, null));
+        return res.status(500).json(new ApiError(500, error.message, null));
     }
 }
 

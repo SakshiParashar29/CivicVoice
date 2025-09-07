@@ -11,7 +11,12 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/user/profile");
+        const token = localStorage.getItem('token');
+        if(!token) return;
+
+        const res = await axios.get("http://localhost:3000/api/users/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setProfile(res.data.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -22,9 +27,14 @@ const AdminProfile = () => {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token) return;
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/user/stats");
+        
+        const res = await axios.get("http://localhost:3000/api/complaint/getStats", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setStats(res.data.data);
         setLoading(false);
       } catch (error) {
@@ -67,7 +77,15 @@ const AdminProfile = () => {
 
       {/* Stats Section */}
       {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+          <div className="bg-white p-5 rounded-2xl shadow flex items-center gap-3">
+            <CheckCircle className="text-purple-600" size={28} />
+            <div>
+              <p className="text-gray-500 text-sm">Total Issues</p>
+              <h3 className="text-lg font-bold">{stats.total}</h3>
+            </div>
+          </div>
+
           <div className="bg-white p-5 rounded-2xl shadow flex items-center gap-3">
             <CheckCircle className="text-green-600" size={28} />
             <div>

@@ -18,6 +18,7 @@ export const getAllComplaints = async (req, res) => {
             id: c._id,
             title: c.title,
             description: c.description,
+            category: c.category,
             upvotes: c.upvotes.length,
             status: c.status
         }));

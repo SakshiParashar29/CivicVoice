@@ -12,9 +12,13 @@ const AdminComplaints = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token) return;
     const fetchComplaints = async () => {
       try {
-        const complaintArr = await axios.get("http://localhost:3000/api/complaint/get-complaints", {});
+        const complaintArr = await axios.get("http://localhost:3000/api/complaint/get-complaints", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setComplaints(complaintArr.data.data);
         setLoading(false);
       } catch (error) {
