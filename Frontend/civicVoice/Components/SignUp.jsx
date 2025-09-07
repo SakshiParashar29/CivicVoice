@@ -31,7 +31,7 @@ const SignUp = ({setActiveForm}) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://civicvoice-frontend.onrender.com/api/users/signup", {
+      const res = await fetch("https://civicvoice-4.onrender.com/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

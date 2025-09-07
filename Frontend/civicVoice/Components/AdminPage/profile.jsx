@@ -14,7 +14,7 @@ const AdminProfile = () => {
         const token = localStorage.getItem('token');
         if(!token) return;
 
-        const res = await axios.get("https://civicvoice-frontend.onrender.com/api/users/profile", {
+        const res = await axios.get("https://civicvoice-4.onrender.com/api/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data.data);
@@ -32,7 +32,7 @@ const AdminProfile = () => {
     const fetchStats = async () => {
       try {
         
-        const res = await axios.get("https://civicvoice-frontend.onrender.com/api/complaint/getStats", {
+        const res = await axios.get("https://civicvoice-4.onrender.com/api/complaint/getStats", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setStats(res.data.data);

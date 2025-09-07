@@ -28,7 +28,7 @@ const UserComplaints = () => {
     if (userVotes.has(id)) return;
 
     try {
-      const res = await fetch(`https://civicvoice-frontend.onrender.com/api/complaint/update-upvote/${id}`, {
+      const res = await fetch(`https://civicvoice-4.onrender.com/api/complaint/update-upvote/${id}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
